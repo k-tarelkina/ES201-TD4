@@ -160,7 +160,7 @@ plot_metrics(
 
 print("\nPlots have been generated successfully")
 
-os.system("tar -czvf plots.tar.gz ./plots")
+os.system("zip -r plots.zip plots")
 
 print(
     "\nPlots have been archived to plots.tar.gz. You can now upload this file to your git repo."
