@@ -34,11 +34,24 @@ Execute script:
 python ./cache_metrics.py [processor: cortex_a15 or cortex_a7] [paths_to_executables]
 ```
 
+**Use ./generate_commands.py instead of ./cache_metrics.py if you want only to generate commands, e.g.:**
+
+```
+python ./generate_commands.py [processor: cortex_a15 or cortex_a7] [paths_to_executables]
+```
+
 Make sure to run script for both processor configurations, e.g.:
 
 ```
 python ./cache_metrics.py cortex_a15 <prog>.ss
 python ./cache_metrics.py cortex_a7 <prog>.ss
+```
+
+Or:
+
+```
+python ./generate_commands.py cortex_a7 <prog>.ss
+python ./generate_commands.py cortex_a15 <prog>.ss
 ```
 
 ## Upload results
