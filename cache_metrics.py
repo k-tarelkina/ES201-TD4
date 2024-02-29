@@ -18,11 +18,11 @@ os.system("rm -rf plots && mkdir plots")
 
 PROCESSOR_CONFIG = {
     "cortex_a15": (
-        "-cache:dl2 ul2:512:64:16:l -bpred:2lev 256  -fetch:ifqsize 8 -fetch:mplat 15 "
+        "-bpred:2lev 256  -fetch:ifqsize 8 -fetch:mplat 15 "
         + "-decode:width 4 -issue:width 8 -commit:width 4 -ruu:size 16 -lsq:size 16 -res:ialu 5 -res:fpalu 1 -res:imult 1 -res:fpmult 1 "
     ),
     "cortex_a7": (
-        "-cache:dl2 ul2:2048:32:8:l -bpred:bimod 256  -fetch:ifqsize 4 -fetch:mplat 8 "
+        "-bpred:bimod 256  -fetch:ifqsize 4 -fetch:mplat 8 "
         + "-decode:width 2 -issue:width 4 -commit:width 2 -ruu:size 2 -lsq:size 8 -res:ialu 1 -res:fpalu 1 -res:imult 1 -res:fpmult 1 "
     ),
 }
