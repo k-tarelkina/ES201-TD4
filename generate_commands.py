@@ -11,8 +11,6 @@ PROCESSOR_CONFIG = {
     ),
 }
 
-DEFAULT_CACHE_SIZE_IN_KB = 32
-
 cache_sizes_in_KB = {"cortex_a15": [2, 4, 8, 16, 32], "cortex_a7": [1, 2, 4, 8, 16]}
 
 
@@ -20,7 +18,7 @@ def get_simple_scalar_config_for_cache_size(
     il1_cache_size, dl1_cache_size, processor_config, block_size=64
 ):
     return (
-        f"sim-outorder -cache:il1 il1:{int(1024 * il1_cache_size / block_size)}:{block_size}:2:l "
+        f"-cache:il1 il1:{int(1024 * il1_cache_size / block_size)}:{block_size}:2:l "
         + f"-cache:dl1 dl1:{int(1024 * dl1_cache_size / block_size)}:{block_size}:2:l "
         + processor_config
     )
@@ -43,29 +41,12 @@ executables = " ".join(sys.argv[2:])
 
 print(f"Processor: {processor}, executables: {executables}")
 
-# Change DL1 cache size
 
-all_metrics = []
-
-for dl1 in cache_sizes_in_KB[processor]:
+for cache_size in cache_sizes_in_KB[processor]:
     config = get_simple_scalar_config_for_cache_size(
-        il1_cache_size=DEFAULT_CACHE_SIZE_IN_KB,
-        dl1_cache_size=dl1,
+        il1_cache_size=cache_size,
+        dl1_cache_size=cache_size,
         processor_config=PROCESSOR_CONFIG[processor],
     )
     command = "sim-outorder " + " ".join([config, executables])
-    print(f"\nil1: {DEFAULT_CACHE_SIZE_IN_KB}KB, dl1: {dl1}KB\n{command}")
-
-
-# Change IL1 cache size
-
-all_metrics = []
-
-for il1 in cache_sizes_in_KB[processor]:
-    config = get_simple_scalar_config_for_cache_size(
-        il1_cache_size=il1,
-        dl1_cache_size=DEFAULT_CACHE_SIZE_IN_KB,
-        processor_config=PROCESSOR_CONFIG[processor],
-    )
-    command = "sim-outorder " + " ".join([config, executables])
-    print(f"\nil1: {il1}KB, dl1: {DEFAULT_CACHE_SIZE_IN_KB}KB\n{command}")
+    print(f"\nil1: {cache_size}KB, dl1: {cache_size}KB\n{command}")
